@@ -13,6 +13,7 @@ const StyledWrapper = styled.div`
 const StyledHeader = styled.div`
   height: 40px;
   flex: none;
+  z-index: 3;
 `;
 
 const StyledBody = styled.div`
@@ -23,6 +24,7 @@ const StyledFooter = styled.div`
   height: 40px;
   flex: none;
   background-color: pink;
+  z-index: 3;
 `;
 
 const Layout = ({ children }) => (
