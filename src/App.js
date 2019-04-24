@@ -8,13 +8,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = () => {
-      console.log("TT")
       this.setState(state => ({ isToggle: !state.isToggle }));
+    }
+    this.mining = () => {
+      this.setState(state => ({ gold: state.gold + 1 }));
     }
     this.state = {
       isToggle: false,
       toggle: this.toggle,
-    }
+      gold: 0,
+      mining: this.mining,
+    };
   }
 
   render() {

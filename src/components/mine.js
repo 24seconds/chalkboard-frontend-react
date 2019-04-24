@@ -1,9 +1,16 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import Context from '../context';
+
+const StyledWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const Mine = props => {
+  const { mining } = useContext(Context);
   return (
-    <div>asdf</div>
+    <StyledWrapper onClick={mining}>asdf</StyledWrapper>
   )
 }
 

@@ -23,16 +23,24 @@ const StyledMenuButton = styled.div`
   }
 `;
 
+const StyledMine = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 const Header = () => {
 
-  const { toggle } = useContext(Context);
+  const { toggle, gold} = useContext(Context);
   
   return (
     <StyledWrapper>
       <div>Logo</div>
-      <StyledMenuButton onClick={toggle}>
-        <img src={pickToolIcon} />
-      </StyledMenuButton>
+      <StyledMine>
+        <div>current: {gold}</div>
+        <StyledMenuButton onClick={toggle}>
+          <img src={pickToolIcon} />
+        </StyledMenuButton>
+      </StyledMine>
     </StyledWrapper>
   )
 }

@@ -4,6 +4,7 @@ const Context = React.createContext(
   {
     isToggle: false,
     toggle: () => {},
+    gold: 0,
   }
 );
 
