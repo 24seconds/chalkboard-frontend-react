@@ -1,21 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import Context from './context';
+
 import Layout from './components/layout';
-import Board from './components/board';
-
-const ToggleContext = React.createContext(
-  {
-    isToggle: false,
-    toggle: () => {},
-  }
-);
-
-
+import Content from './components/content';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = () => {
-      this.setState((state, props) => ({ toggle: !state.toggle }));
+      console.log("TT")
+      this.setState(state => ({ isToggle: !state.isToggle }));
     }
     this.state = {
       isToggle: false,
@@ -26,11 +20,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <ToggleContext.Provider value={this.state}>
+        <Context.Provider value={this.state}>
           <Layout>
-            <Board />
+            <Content />
           </Layout>
-        </ToggleContext.Provider>
+        </Context.Provider>
       </div>
     );
   }

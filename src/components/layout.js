@@ -17,7 +17,6 @@ const StyledHeader = styled.div`
 
 const StyledBody = styled.div`
   flex: 1;
-  background-color: rgba(20.6%, 65.5%, 0%, 0.5);
 `;
 
 const StyledFooter = styled.div`
@@ -32,7 +31,7 @@ const Layout = ({ children }) => (
       <Header />
     </StyledHeader>
     <StyledBody>
-      {children}
+      { children }
     </StyledBody>
     <StyledFooter>
       <Footer />
