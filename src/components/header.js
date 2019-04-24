@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import pickToolIcon from '../../public/img/pick-tool.png'
 
 const StyledWrapper = styled.header`
   height: 100%;
@@ -24,7 +25,7 @@ class Header extends React.Component {
     return (
       <StyledWrapper>
         <StyledMenuButton>
-          
+          <img src={pickToolIcon} />
         </StyledMenuButton>
         <div>Logo</div>
       </StyledWrapper>
