@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import panzoom from 'panzoom';
+import { Editor, EditorState } from 'draft-js';
+import Context from '../context';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -14,15 +15,23 @@ const StyledWrapper = styled.div`
 
 const SomeDiv = styled.div`
   position: absolute;
+  overflow: auto;
   top: ${props => `${props.y}px`};
   left: ${props => `${props.x}px`};
   width: ${props => `${props.width}px`};
   height: ${props => `${props.height}px`};
-  ${props => props.drag || 'background-color: red'};
+  ${props => props.drag || 'background-color: rgba(0%, 69.8%, 86.6%, 0.5)'};
   ${props => props.drag && 'border: 1px solid black'};
 `;
 
+const StyledEditor = styled(Editor)`
+  width: 100%:
+  height: 100%;
+  background-color: rgba(100%, 10.5%, 86.6%, 0.5);
+`;
+
 class Board extends React.Component {
+  static contextType = Context;
   constructor(props) {
     super(props);
     this.boardRef = React.createRef();
@@ -33,7 +42,9 @@ class Board extends React.Component {
       width: 0,
       height: 0,
       drag: false,
+      editorState: EditorState.createEmpty(),
     }
+    this.onChange = editorState => this.setState({ editorState });
   }
 
   componentDidMount() {
@@ -45,29 +56,50 @@ class Board extends React.Component {
   }
 
   onMouseDown = e => {
+    if (!this.context.isEdit) return;
     const { pageX: x, pageY: y } = e;
-    this.setState({x, y, width: 0, height: 0, drag: true});
+    const rect = this.boardRef.current.getBoundingClientRect();
+    const newX = x - rect.left;
+    const newY = y - rect.top;
+    this.setState({
+      x: newX,
+      y: newY,
+      width: 0,
+      height: 0,
+      drag: true, 
+      editorState: EditorState.createEmpty()
+    });
 
   }
 
   onMouseMove = e => {
-    const { pageX: x, pageY: y } = e;
+    if (!this.context.isEdit) return;
+    const { clientX: x, clientY: y } = e;
     const { x: prevX, y: prevY, drag } = this.state;
     if (!drag) return;
-    const width = x - prevX;
-    const height = y - prevY;
+    const rect = this.boardRef.current.getBoundingClientRect();
+    const newX = x - rect.left;
+    const newY = y - rect.top;
+
+    const width = Math.round((newX - prevX) / 25) * 25;
+    const height = Math.round((newY - prevY) / 25) * 25;
+
     this.setState({ width, height });
   }
 
   onMouseUp = e => {
+    if (!this.context.isEdit) return;
     this.setState({ drag: false });
+    this.context.setAdd();
   }
 
   render() {
     const { x, y, width, height, drag } = this.state;
     return (
       <StyledWrapper ref={this.boardRef} onMouseDown={this.onMouseDown} onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}> 
-          <SomeDiv ref={elem => this.nv = elem} x={x} y={y} width={width} height={height} drag={drag}/>
+        <SomeDiv ref={elem => this.nv = elem} x={x} y={y} width={width} height={height} drag={drag}>
+          <StyledEditor editorState={this.state.editorState} onChange={this.onChange} />
+        </SomeDiv>
       </StyledWrapper>
     )
   }

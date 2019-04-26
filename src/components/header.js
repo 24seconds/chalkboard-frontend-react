@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import pickToolIcon from '../../public/img/pick-tool.png'
+import pickToolIcon from '../../public/img/pick-tool.png';
+import addIcon from '../../public/img/add.png';
 import Context from '../context';
 
 const StyledWrapper = styled.header`
@@ -13,7 +14,7 @@ const StyledWrapper = styled.header`
   align-items: center;
 `;
 
-const StyledMenuButton = styled.div`
+const StyledIcon = styled.div`
   margin: 0 10px;
   width: 20px;
   height: 20px;
@@ -30,16 +31,19 @@ const StyledMine = styled.div`
 
 const Header = () => {
 
-  const { toggle, gold} = useContext(Context);
+  const { toggle, gold, setAdd } = useContext(Context);
   
   return (
     <StyledWrapper>
+      <StyledIcon onClick={setAdd}>
+        <img src={addIcon} alt="add" />
+      </StyledIcon>
       <div>Logo</div>
       <StyledMine>
         <div>current: {gold}</div>
-        <StyledMenuButton onClick={toggle}>
-          <img src={pickToolIcon} />
-        </StyledMenuButton>
+        <StyledIcon onClick={toggle}>
+          <img src={pickToolIcon} alt="pick" />
+        </StyledIcon>
       </StyledMine>
     </StyledWrapper>
   )

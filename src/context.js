@@ -5,6 +5,8 @@ const Context = React.createContext(
     isToggle: false,
     toggle: () => {},
     gold: 0,
+    isEdit: false,
+    setAdd: () => {},
   }
 );
 

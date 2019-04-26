@@ -12,8 +12,18 @@ const StyledWrapper = styled.div`
   background-color: rgba(20.6%, 65.5%, 0%, 0.5);
 `;
 
-const StyledBoard = styled.div`
+const StyledBoardWrapper = styled.div`
   flex: 3;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledBoard = styled.div`
+  width: 1200px;
+  height: 500px;
+  margin: 30px;
 `;
 
 const StyledMine = styled.div`
@@ -28,9 +38,11 @@ const Content = () => {
   const { isToggle } = useContext(Context);
   return (
     <StyledWrapper>
-      <StyledBoard>
-        <Board />
-      </StyledBoard>
+      <StyledBoardWrapper>
+        <StyledBoard>
+          <Board />
+        </StyledBoard>
+      </StyledBoardWrapper>
       <StyledMine display={isToggle}>
         <Mine />
       </StyledMine>
