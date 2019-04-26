@@ -13,8 +13,8 @@ class App extends React.Component {
     this.mining = () => {
       this.setState(state => ({ gold: state.gold + 1 }));
     }
-    this.setAdd = () => {
-      this.setState(state => ({ isEdit: !state.isEdit }));
+    this.setAdd = flag => {
+      this.setState(state => ({ isEdit: flag }));
     }
     this.state = {
       isToggle: false,

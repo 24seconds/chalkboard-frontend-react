@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Editor, EditorState } from 'draft-js';
-import Context from '../context';
+import MemoEditor from './editor';
+import Context from '../../context';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -10,24 +10,6 @@ const StyledWrapper = styled.div`
   border: 1px solid gray;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-`;
-
-const SomeDiv = styled.div`
-  position: absolute;
-  overflow: auto;
-  top: ${props => `${props.y}px`};
-  left: ${props => `${props.x}px`};
-  width: ${props => `${props.width}px`};
-  height: ${props => `${props.height}px`};
-  ${props => props.drag || 'background-color: rgba(0%, 69.8%, 86.6%, 0.5)'};
-  ${props => props.drag && 'border: 1px solid black'};
-`;
-
-const StyledEditor = styled(Editor)`
-  width: 100%:
-  height: 100%;
-  background-color: rgba(100%, 10.5%, 86.6%, 0.5);
 `;
 
 class Board extends React.Component {
@@ -42,7 +24,6 @@ class Board extends React.Component {
       width: 0,
       height: 0,
       drag: false,
-      editorState: EditorState.createEmpty(),
     }
     this.onChange = editorState => this.setState({ editorState });
   }
@@ -67,7 +48,6 @@ class Board extends React.Component {
       width: 0,
       height: 0,
       drag: true, 
-      editorState: EditorState.createEmpty()
     });
 
   }
@@ -90,16 +70,19 @@ class Board extends React.Component {
   onMouseUp = e => {
     if (!this.context.isEdit) return;
     this.setState({ drag: false });
-    this.context.setAdd();
+    this.context.setAdd(false);
+  }
+
+  cancel = () => {
+    this.setState({ width: 0, height: 0 });
   }
 
   render() {
     const { x, y, width, height, drag } = this.state;
+
     return (
       <StyledWrapper ref={this.boardRef} onMouseDown={this.onMouseDown} onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}> 
-        <SomeDiv ref={elem => this.nv = elem} x={x} y={y} width={width} height={height} drag={drag}>
-          <StyledEditor editorState={this.state.editorState} onChange={this.onChange} />
-        </SomeDiv>
+        <MemoEditor x={x} y={y} width={width} height={height} drag={drag} cancel={this.cancel}/>
       </StyledWrapper>
     )
   }

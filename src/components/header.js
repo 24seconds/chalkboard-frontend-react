@@ -35,7 +35,7 @@ const Header = () => {
   
   return (
     <StyledWrapper>
-      <StyledIcon onClick={setAdd}>
+      <StyledIcon onClick={() => setAdd(true)}>
         <img src={addIcon} alt="add" />
       </StyledIcon>
       <div>Logo</div>

@@ -43,7 +43,7 @@ const Content = () => {
           <Board />
         </StyledBoard>
       </StyledBoardWrapper>
-      <StyledMine display={isToggle}>
+      <StyledMine display={isToggle ? 1 : 0}>
         <Mine />
       </StyledMine>
     </StyledWrapper>
