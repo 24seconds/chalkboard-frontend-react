@@ -5,7 +5,6 @@ import Context from '../../context';
 
 const StyledWrapper = styled.div`
   position: relative;
-  border-radius: 30px;
   background-color: white;
   border: 1px solid gray;
   width: 100%;
